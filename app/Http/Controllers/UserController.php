@@ -10,6 +10,7 @@ class UserController extends Controller
     // Método para listar usuários
     public function index()
     {
+        return view('/users/users');
     }
 
     // Método para mostrar o formulário de criar novo usuário
