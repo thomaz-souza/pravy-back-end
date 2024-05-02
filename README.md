@@ -48,17 +48,16 @@ php artisan migrate --seed
 - .env
 
 ## Uso da Api - endpoints
-
+É necessário escolher ou criar uma variavel de ambiente. "Aplicação_local" = http://localhost:8000/api
 Todos os endpoints estão sob o prefixo /user.
 
- 
-- "/login" : Do tipo POST, realiza o login e devolve um token temporário
-- "/two-factor-challenge" : Do tipo POST, Desafio de autenticação de dois fatores
-- "/register" : Do Tipo POST, Realiza o registro de usuário
+ - "/register" : Do Tipo POST, Realiza o registro de usuário/ Retorna um código de acesso único eo ID do usuário
+- "/login" : Do tipo POST, realiza o login e devolve um token temporário/ Retorna Um token temporário para autenticação de dois fatores
+- "/two-factor-challenge" : Do tipo POST, Desafio de autenticação de dois fatores / Retorna um token permanente de acesso
 
 Endpoints Protegidos (requer autenticação por Bearer Token):
 - "/" : Do tipo GET, Lista os usuários
-- "/{user}" : Do tipo PUT. Atualiza o usuário com o ID fornecido
+- "/{user}" : Do tipo PUT. Atualiza o usuário com o ID fornecido. É obrigatório inserir o email atual ou o novo email
 - "/logout" : Realiza o Logout excluindo a autenticação por token
 
 ## Coleção Postman 
