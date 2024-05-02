@@ -17,7 +17,7 @@ Route::prefix('user')->group(function () {
     // Rota para Cadastro
     Route::post('/register', [UserController::class, 'store']);
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware('auth')->group(function () {
 
         //Listar Usuários
         Route::get('/', [UserController::class, 'index']);
