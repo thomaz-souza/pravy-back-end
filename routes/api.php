@@ -4,6 +4,10 @@ use App\Http\Controllers\Api\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 
+Route::get('/login', function () {
+    return response()->json(['Nao autorizado'], 403);
+})->name('login');
+
 
 //Prefixo user para end-points
 Route::prefix('user')->group(function () {
