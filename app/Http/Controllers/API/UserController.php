@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Address;
 use App\Actions\Fortify\CreateNewUser;
 
 class UserController extends Controller
@@ -42,6 +43,23 @@ class UserController extends Controller
             ],
             201
         );
+    }
+
+    public function addresses(Request $request)
+    {
+        // Acessa o usuário autenticado
+        $userId = $request->user()->id;
+
+        // Buscar endereços diretamente pelo user_id
+        $addresses = Address::where('user_id', $userId)->get();
+
+        // Checar se encontrou algum endereço
+        if ($addresses->isEmpty()) {
+            return response()->json(['message' => 'Não foi encontrado endereço para esse usuário'], 404);
+        }
+
+        // Retorna os endereços em formato JSON
+        return response()->json($addresses);
     }
 
 

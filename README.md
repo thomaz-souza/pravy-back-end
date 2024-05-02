@@ -57,7 +57,8 @@ Todos os endpoints estão sob o prefixo /user.
 
 Endpoints Protegidos (requer autenticação por Bearer Token):
 - "/" : Do tipo GET, Lista os usuários
-- "/{user}" : Do tipo PUT. Atualiza o usuário com o ID fornecido. É obrigatório inserir o email atual ou o novo email
+- "/addresses" : Do tipo GET, Lista todos os endereços vinculados ao usuário
+- "/update/{user}" : Do tipo PUT. Atualiza o usuário com o ID fornecido. É obrigatório inserir o email atual ou o novo email
 - "/logout" : Realiza o Logout excluindo a autenticação por token
 
 ## Coleção Postman 

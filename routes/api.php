@@ -26,8 +26,11 @@ Route::prefix('user')->group(function () {
         //Listar Usuários
         Route::get('/', [UserController::class, 'index']);
 
+        // Rota para endereços
+        Route::get('/addresses', [UserController::class, 'addresses']);
+
         //Atualizar Usuário
-        Route::put('/{user}', [UserController::class, 'update']);
+        Route::put('/update/{user}', [UserController::class, 'update']);
 
         //Deslogar usuário
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
