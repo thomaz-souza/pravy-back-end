@@ -32,14 +32,17 @@ class UserController extends Controller
     public function store(Request $request, CreateNewUser $create)
     {
         //Valida as informações fornecidas e cria o usuário
-        $security_code = $create->create($request->all());
+        $newUser = $create->create($request->all());
+
+        // Cria dados relacionados ao usuário, como endereços
+        $this->createRelatedData($newUser->id);
 
         //Mensagem de sucesso
         return response()->json(
             [
                 'message' => 'Usuario Registrado com sucesso!
                  Anote seu codigo de segurança',
-                'security_code' => $security_code->two_factor_secret
+                'security_code' => $newUser->two_factor_secret
             ],
             201
         );
@@ -60,6 +63,12 @@ class UserController extends Controller
 
         // Retorna os endereços em formato JSON
         return response()->json($addresses);
+    }
+
+    protected function createRelatedData($id)
+    {
+        // Exemplo: criar de 1 a 3 endereços aleatórios para o usuário
+        Address::factory()->count(rand(1, 3))->create(['user_id' => $id]);
     }
 
 
