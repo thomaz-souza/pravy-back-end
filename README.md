@@ -47,7 +47,18 @@ php artisan migrate --seed
 
 - .env
 
-## Uso da Api
+## Uso da Api - endpoints
+
+Todos os endpoints estão sob o prefixo /user.
+
+Login: POST /login
+Desafio 2FA: POST /two-factor-challenge
+Registro: POST /register
+Endpoints Protegidos (requer autenticação):
+
+Listar Usuários: GET /
+Atualizar Usuário: PUT /{user}
+Logout: POST /logout
 
 ## Coleção Postman 
 
