@@ -62,7 +62,7 @@ Logout: POST /logout
 
 ## Coleção Postman 
 
-- [REST API - Users. Pravy](https://google.com)
+- [REST API - Users. Pravy](https://www.postman.com/avionics-explorer-17875635/workspace/thomaz-souza/documentation/25436095-4679c239-7a76-45c6-9d2b-11f8311fc8d0)
 
 
 ## Segurança
