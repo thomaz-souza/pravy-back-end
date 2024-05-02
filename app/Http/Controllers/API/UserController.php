@@ -25,13 +25,23 @@ class UserController extends Controller
      * Realiza a solicitação de registro.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Actions\Fortify\CreateNewUser  $create
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request, CreateNewUser $create)
     {
-        $create->create($request->all());
+        //Valida as informações fornecidas e cria o usuário
+        $security_code = $create->create($request->all());
 
-        return response()->json(['message' => 'Usuario Registrado com sucesso!']);
+        //Mensagem de sucesso
+        return response()->json(
+            [
+                'message' => 'Usuario Registrado com sucesso!
+                 Anote seu codigo de segurança',
+                'security_code' => $security_code->two_factor_secret
+            ],
+            201
+        );
     }
 
 
@@ -39,10 +49,13 @@ class UserController extends Controller
      * Atualiza as informações de cadastro do usuário.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, User $user)
     {
+
+        //Valida se os campos fornecidos então dentro dos requisitos
         $validator = Validator::make($request->all(), [
             'name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email,' . $user->id,
@@ -50,24 +63,30 @@ class UserController extends Controller
             'confirm_password' => 'nullable|string|min:8',
         ]);
 
+        // Se não passar no teste de validação retorna erro
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
+        // Se houver novo um nome, atualiza
         if ($request->has('name')) {
             $user->name = $request->name;
         }
 
+        // Se houver um novo email, atualiza
         if ($request->has('email')) {
             $user->email = $request->email;
         }
 
+        // Se houver uma nova senha e se ela conferir com a senha de confirmação, atualiza
         if ($request->has('password') && ($request->password == $request->confirm_password)) {
             $user->password = Hash::make($request->password);
         }
 
+        // Atualiza as novas informações no banco de dados
         $user->save();
 
+        // Retorna as informações atualizadas
         return response()->json($user);
     }
 }

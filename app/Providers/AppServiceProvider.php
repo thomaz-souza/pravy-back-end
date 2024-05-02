@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        //Ignora rotas web
         Fortify::ignoreRoutes();
     }
 }

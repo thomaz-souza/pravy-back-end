@@ -13,29 +13,29 @@ use App\Models\User;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * A senha usada pela Factory.
      */
     protected static ?string $password;
     protected $model = User::class;
 
     /**
-     * Define the model's default state.
+     * Define o estado padrão do model
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->name, // Gera um nome e sobrenome aleatórios
+            'email' => $this->faker->unique()->safeEmail, //Gera um email aleatório
+            'email_verified_at' => now(), // Define a data do processamento da factory
+            'password' => static::$password ??= Hash::make('password'), //Define uma senha aleatória com hash
+            'remember_token' => Str::random(10), // Define um token aleatório
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indica que o email do model deveria ser não verificado
      */
     public function unverified(): static
     {

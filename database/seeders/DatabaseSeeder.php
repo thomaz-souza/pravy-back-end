@@ -8,7 +8,8 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * 
+     * Propaga o banco de dados do aplicativo.
      */
     public function run(): void
     {
