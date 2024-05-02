@@ -7,10 +7,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Laravel\Fortify\TwoFactorAuthenticationProvider;
 
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
+
+    protected $twoFactor;
+
+    public function __construct(TwoFactorAuthenticationProvider $twoFactor)
+    {
+        $this->twoFactor = $twoFactor;
+    }
 
     /**
      * Validate and create a newly registered user.
@@ -31,10 +39,17 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        // Gerar e salvar o two_factor_secret assim que o usuário é criado
+        $user->two_factor_secret = $this->twoFactor->generateSecretKey();
+        $user->two_factor_confirmed_at = now();
+        $user->save();
+
+        return $user;
     }
 }
