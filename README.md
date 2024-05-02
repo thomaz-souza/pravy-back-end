@@ -51,14 +51,15 @@ php artisan migrate --seed
 
 Todos os endpoints estão sob o prefixo /user.
 
-Login: POST /login
-Desafio 2FA: POST /two-factor-challenge
-Registro: POST /register
-Endpoints Protegidos (requer autenticação):
+ 
+- "/login" : Do tipo POST, realiza o login e devolve um token temporário
+- "/two-factor-challenge" : Do tipo POST, Desafio de autenticação de dois fatores
+- "/register" : Do Tipo POST, Realiza o registro de usuário
 
-Listar Usuários: GET /
-Atualizar Usuário: PUT /{user}
-Logout: POST /logout
+Endpoints Protegidos (requer autenticação por Bearer Token):
+- "/" : Do tipo GET, Lista os usuários
+- "/{user}" : Do tipo PUT. Atualiza o usuário com o ID fornecido
+- "/logout" : Realiza o Logout excluindo a autenticação por token
 
 ## Coleção Postman 
 
